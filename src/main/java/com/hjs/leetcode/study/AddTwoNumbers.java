@@ -30,9 +30,14 @@ public class AddTwoNumbers {
         l2.next = new ListNode(6);
         l2.next.next = new ListNode(4);
 
+
+        ListNode node = addTwoNumbers(l1,l2);
+
+        System.out.println(node.val);
+
     }
 
-    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+    public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
 
         //感觉得递归啊
         List<Integer> num1 = new ArrayList<>();
@@ -43,12 +48,10 @@ public class AddTwoNumbers {
         int val2 = getVal(num2);
         int val = val1 + val2;
 
-
-
-        return null;
+        return getListNode(val);
     }
 
-    private void setIntVal(ListNode ln, List<Integer> allNum){
+    private static void setIntVal(ListNode ln, List<Integer> allNum){
         if(ln != null){
             allNum.add(ln.val);
             ln = ln.next;
@@ -57,20 +60,47 @@ public class AddTwoNumbers {
     }
 
 
-    private int getVal(List<Integer> allNum){
+    private static int getVal(List<Integer> allNum){
         int val = 0;
-        int j = 0;
+        int j = 1;
         for (int i = allNum.size()-1; i >=0 ; i--) {
             val += allNum.get(i) * j;
-            j ++ ;
+            j *= 10 ;
         }
         return val;
     }
 
-    private ListNode getListNode(int val){
+    private static ListNode getListNode(int val){
+
+        //先列出所有的数字
+        List<Integer> nums = new ArrayList<>();
+
+        if(val == 0){
+            nums.add(0);
+        }
+
+        while (val > 0){
+            int nodeVal = val % 10;
+            nums.add(nodeVal);
+            val = val/10;
+        }
+
+        ListNode node = null;
+
+        for (Integer num : nums) {
+
+            if(node == null){
+                node = new ListNode(num);
+            }else if(node.next == null){
+                node.next = new ListNode(num);
+            }else if(node.next.next == null){
+                node.next.next = new ListNode(num);
+            }
 
 
 
+        }
+        return node;
     }
 
 
